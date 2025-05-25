@@ -121,7 +121,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_DIRS = [BASE_DIR / "freelancehub" / "static"]
+STATICFILES_DIRS = [
+    BASE_DIR / "freelancehub" / "static",
+    BASE_DIR / "services" / "static",
+]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
