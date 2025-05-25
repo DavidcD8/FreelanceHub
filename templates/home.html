@@ -23,12 +23,12 @@
   <h3 class="mb-4">Latest Services</h3>
   <div class="row">
     {% for service in services %}
-      <div class="col-md-4 col-sm-6 mb-4">
+      <div class="col-lg-4 col-md-6 col-12 mb-4">
         <div class="service-card h-100 shadow-sm rounded overflow-hidden">
           {% if service.image %}
             <img src="{{ service.image.url }}" alt="{{ service.title }} image" class="img-fluid w-100" style="object-fit: cover; height: 200px;">
           {% else %}
-            <div class="image image d-flex justify-content-center align-items-center" style="height: 200px; background-color: #f0f0f0; position: relative;">
+            <div class="image d-flex justify-content-center align-items-center" style="height: 200px; background-color: #f0f0f0; position: relative;">
               <div class="diagonal-line"></div>
               <div class="diagonal-line reverse"></div>
             </div>
@@ -51,6 +51,7 @@
       <p>No services available.</p>
     {% endfor %}
   </div>
+  
 </div>
 
 {% endblock %}
