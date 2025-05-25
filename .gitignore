@@ -1,0 +1,23 @@
+# Python related
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+env/
+venv/
+*.env
+.env
+
+# Django stuff
+*.sqlite3
+/staticfiles/
+/media/
+
+# VSCode settings
+.vscode/
+
+# macOS files
+.DS_Store
+
+# Pipenv virtual environment
+Pipfile.lock

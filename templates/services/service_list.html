@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Home - Local Services{% endblock %}
+{% block content %}
+
+{% if services %}
+  <ul>
+    {% for service in services %}
+      <li>
+        <a href="{% url 'service_detail' service.pk %}">{{ service.title }}</a> - {{ service.category }} - ${{ service.price }}
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No services found.</p>
+{% endif %}
+{% endblock %}

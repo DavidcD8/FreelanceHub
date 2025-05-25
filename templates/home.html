@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block title %}Home - Local Services{% endblock %}
+{% block content %}
+
+<!-- Hero -->
+<div class="hero">
+  <div class="container d-flex justify-content-between align-items-center flex-wrap">
+     <div class="hero-text mb-3">
+      <h1>Find and Post Local Services</h1>
+      <p>A simple platform to connect with service providers or offer your own skills.</p>
+    </div>
+
+    <!-- Search Bar -->
+    <form method="get" action="{% url 'service_list' %}" class="search-box">
+        <input type="text" name="q" class="form-control" placeholder="Search...">
+        <button class="btn btn-primary" type="submit">Search</button>
+      </form>
+    </div>
+</div>
+
+<!-- Services Section -->
+<div class="container py-5">
+  <h3 class="mb-4">Latest Services</h3>
+  <div class="row">
+    {% for service in services %}
+      <div class="col-md-4 col-sm-6 mb-4">
+        <div class="service-card h-100 shadow-sm rounded overflow-hidden">
+
+          {% if service.image %}
+            <img src="{{ service.image.url }}" alt="{{ service.title }} image" class="img-fluid w-100" style="object-fit: cover; height: 200px;">
+          {% else %}
+            <div class="image image d-flex justify-content-center align-items-center" style="height: 200px; background-color: #f0f0f0; position: relative;">
+              <div class="diagonal-line"></div>
+              <div class="diagonal-line reverse"></div>
+            </div>
+          {% endif %}
+
+          <div class="card-content p-3">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <h6 class="mb-0">{{ service.title }}</h6>
+              <p class="text-muted mb-0">€{{ service.price }}</p>
+            </div>
+            <span class="category-tag badge bg-light text-dark mb-2 text-truncate" style="max-width: 120px;" title="{{ service.category }}">
+              {{ service.category }}
+            </span><br>
+            <small class="text-muted">By {{ service.owner }}</small>
+          </div>
+
+        </div>
+      </div>
+    {% empty %}
+      <p>No services available.</p>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}
