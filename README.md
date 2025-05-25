@@ -12,6 +12,9 @@
 
 
 
+## Deployed link
+
+https://freelancehub-8yvj.onrender.com/
 ---
 
 ## 🚀 Features
@@ -127,6 +130,7 @@ TEMPLATES = [
 ]
 ```
 
+---
 **🔧 Issue**: In the mobile view, the dropdown menu in the navbar was causing excessive white space even when the menu was not expanded..
 
 **Cause**:
@@ -136,12 +140,14 @@ By default, Bootstrap dropdown menus use position: absolute to overlay on top of
 Ensure the .dropdown-menu uses position: absolute so it doesn't take up space when hidden.
 
 
+---
 
 **🔧 Issue**: Navigation bar image was corrupted and not displaying after the project was deployed on render
 
 **✅ Fix**:
 Repalced image
 
+---
 
 **🔧 Issue**: The website was not displaying properly on smaller screen 
 
