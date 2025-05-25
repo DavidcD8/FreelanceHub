@@ -8,7 +8,7 @@
 ```
 
 
-![Homepage](services/static/assets/images/Homepage.png)
+![Homepage](services/static/assets/images/home.png)
 
 
 
@@ -17,7 +17,7 @@
 ## 🚀 Features
 
 - 🗂 Category-based service filtering
-- 🔍 Search for services by keyword
+- ☁️ Cloudinary integration for image
 - 🧩 Bootstrap 5 integrated for responsive design
 - 🎨 Poppins font styling with hover animations
 - 🖼 Custom logo for navbar,
@@ -135,7 +135,28 @@ By default, Bootstrap dropdown menus use position: absolute to overlay on top of
 **✅ Fix**:
 Ensure the .dropdown-menu uses position: absolute so it doesn't take up space when hidden.
 
+
+
+**🔧 Issue**: Navigation bar image was corrupted and not displaying after the project was deployed on render
+
+**✅ Fix**:
+Repalced image
+
+
+**🔧 Issue**: The website was not displaying properly on smaller screen 
+
+**Cause**:
+The meta viewport was missing fron <head> on base tempalte
+
+**✅ Fix**: 
+```html 
+Added
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+```
+
 ## 🎨 Fonts & Styles
+
 
 **Font Used**: [Poppins](https://fonts.google.com/specimen/Poppins)
 
