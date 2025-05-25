@@ -25,7 +25,6 @@
     {% for service in services %}
       <div class="col-md-4 col-sm-6 mb-4">
         <div class="service-card h-100 shadow-sm rounded overflow-hidden">
-
           {% if service.image %}
             <img src="{{ service.image.url }}" alt="{{ service.title }} image" class="img-fluid w-100" style="object-fit: cover; height: 200px;">
           {% else %}
@@ -34,10 +33,11 @@
               <div class="diagonal-line reverse"></div>
             </div>
           {% endif %}
-
           <div class="card-content p-3">
             <div class="d-flex justify-content-between align-items-center mb-2">
-              <h6 class="mb-0">{{ service.title }}</h6>
+              <h6 class="mb-0">
+                <a href="{% url 'service_detail' service.pk %}" class="text-decoration-none text-dark">{{ service.title }}</a>
+              </h6>
               <p class="text-muted mb-0">€{{ service.price }}</p>
             </div>
             <span class="category-tag badge bg-light text-dark mb-2 text-truncate" style="max-width: 120px;" title="{{ service.category }}">
@@ -45,7 +45,6 @@
             </span><br>
             <small class="text-muted">By {{ service.owner }}</small>
           </div>
-
         </div>
       </div>
     {% empty %}

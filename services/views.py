@@ -2,10 +2,22 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Service
 from .forms import ServiceForm
 from django.contrib.auth.decorators import login_required
+from .forms import CustomUserCreationForm
+from django.contrib.auth import login
 
+def register(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)  # log the user in after registration
+            return redirect('home')  # or any other page
+    else:
+        form = CustomUserCreationForm()
+        return render(request, 'registration/register.html', {'form': form})
 
 def home(request):
-    services = Service.objects.all().order_by('-created')
+    services = Service.objects.all().order_by('-created')[:6]
     categories = Service.CATEGORY_CHOICES
     return render(request, 'home.html', {'services': services, 'categories': categories})
 

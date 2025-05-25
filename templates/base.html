@@ -14,11 +14,7 @@
 
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-4">
-  <a href="{% url 'home' %}" class="d-flex align-items-center">
-    <img src="{% static 'assets/images/FLLogoB.png' %}" alt="Logo" style="height: 90px;">
-  </a>
-  
-
+  <a href="{% url 'home' %}" class="d-flex align-items-center"><img src="{% static 'assets/images/FLLogoB.png' %}" alt="Logo" style="height: 90px;"></a>
   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -36,11 +32,9 @@
           {% for code, label in categories %}
           <li><a class="dropdown-item" href="{% url 'service_list' %}?category={{ code }}">{{ label }}</a></li>
         {% endfor %}
-
         </ul>
       </li>
       <li class="nav-item"><a class="nav-link" href="{% url 'service_list' %}">Services</a></li>
-
       {% if user.is_authenticated %}
       <li class="nav-item ms-3">
         <img src="{% static 'img/profile.png' %}" alt="User" class="rounded-circle" width="35">

@@ -33,7 +33,7 @@
 - **Static Management**: Django static files
 - **Font**: Poppins (Google Fonts)
 
- 
+
 
 ---
 
@@ -127,6 +127,13 @@ TEMPLATES = [
 ]
 ```
 
+**🔧 Issue**: In the mobile view, the dropdown menu in the navbar was causing excessive white space even when the menu was not expanded..
+
+**Cause**:
+By default, Bootstrap dropdown menus use position: absolute to overlay on top of content and avoid affecting layout.
+
+**✅ Fix**:
+Ensure the .dropdown-menu uses position: absolute so it doesn't take up space when hidden.
 
 ## 🎨 Fonts & Styles
 
