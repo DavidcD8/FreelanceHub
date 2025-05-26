@@ -38,8 +38,11 @@
       <li class="nav-item"><a class="nav-link" href="{% url 'service_list' %}">Services</a></li>
       {% if user.is_authenticated %}
       <li class="nav-item ms-3">
-        <img src="{% static 'img/profile.png' %}" alt="User" class="rounded-circle" width="35">
+        <a class="nav-link" href="{% url 'profile' %}"><img src="{% static 'img/profile.png' %}" alt="User" class="rounded-circle" width="35"></a>
       </li>
+      {% else %}
+      <li class="nav-item ms-3"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+
       {% endif %}
     </ul>
   </div>
