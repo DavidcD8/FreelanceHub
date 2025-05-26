@@ -14,6 +14,7 @@ def register(request):
             user = form.save()
             login(request, user)  # log the user in after registration
             return redirect('home')  # or any other page
+        return render(request, 'registration/register.html', {'form': form})
     else:
         form = CustomUserCreationForm()
         return render(request, 'registration/register.html', {'form': form})

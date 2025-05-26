@@ -201,6 +201,21 @@ class ServicesConfig(AppConfig):
         import services.signals
 ```
 
+
+
+---
+
+**🔧 Issue**: The  register view was returning error 500
+
+**Cause**: The view didn’t return an HttpResponse object.
+
+**✅ Fix**:
+```python
+added this line 
+        return render(request, 'registration/register.html', {'form': form})
+```
+---
+
 ## 🎨 Fonts & Styles
 
 
