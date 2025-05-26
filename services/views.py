@@ -1,9 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Service
+from .models import Service, Profile
 from .forms import ServiceForm
 from django.contrib.auth.decorators import login_required
 from .forms import CustomUserCreationForm
 from django.contrib.auth import login
+from .forms import ProfileForm
+
 
 def register(request):
     if request.method == 'POST':
@@ -16,10 +18,31 @@ def register(request):
         form = CustomUserCreationForm()
         return render(request, 'registration/register.html', {'form': form})
 
+
 def home(request):
     services = Service.objects.all().order_by('-created')[:6]
     categories = Service.CATEGORY_CHOICES
     return render(request, 'home.html', {'services': services, 'categories': categories})
+
+
+def profile(request):
+    profile_info =  Profile.objects.all()
+    return render(request, 'profile.html', {'profile_info':profile_info})
+
+@login_required
+def edit_profile(request):
+    profile = request.user.profile  # assuming Profile created on user creation
+
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('profile_detail')  # or any page you want to redirect to
+    else:
+        form = ProfileForm(instance=profile)
+
+    return render(request, 'edit_profile.html', {'form': form})
+
 
 
 def service_list(request):

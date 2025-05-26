@@ -1,0 +1,15 @@
+<!-- yourapp/templates/yourapp/profile_detail.html -->
+
+<h2>{{ user.username }}'s Profile</h2>
+
+<p><strong>Experience Level:</strong> {{ user.profile.get_experience_level_display }}</p>
+
+<p><strong>Seller Level:</strong> {{ user.profile.level|title }}</p>
+
+<p><strong>Bio:</strong> {{ user.profile.bio }}</p>
+
+<p><strong>Location:</strong> {{ user.profile.location }}</p>
+
+{% if user.profile.image %}
+  <img src="{{ user.profile.image.url }}" alt="Profile Image" width="150" />
+{% endif %}

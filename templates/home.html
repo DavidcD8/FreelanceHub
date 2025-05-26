@@ -44,6 +44,14 @@
               {{ service.category }}
             </span><br>
             <small class="text-muted">By {{ service.owner }}</small>
+            <span class="badge badge-pink me-2">
+              Experience: {{ service.owner.profile.get_experience_level_display }}
+            </span>
+            <span class="badge badge-pink">
+              Seller: {{ service.owner.profile.computed_level }}
+            </span>
+            
+
           </div>
         </div>
       </div>
@@ -51,7 +59,7 @@
       <p>No services available.</p>
     {% endfor %}
   </div>
-  
+
 </div>
 
 {% endblock %}

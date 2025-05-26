@@ -154,11 +154,51 @@ Repalced image
 **Cause**:
 The meta viewport was missing fron <head> on base tempalte
 
-**✅ Fix**: 
-```html 
+**✅ Fix**:
+```html
 Added
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+```
+---
+
+**🔧 Issue**: Wrong currency in service detail page
+
+**✅ Fix**:
+Added € symbol 
+
+---
+
+**🔧 Issue**: The profile was not being created when user registed
+
+**Cause**: the signal.py file was missing the save method.
+
+**✅ Fix**:
+
+```python
+Added 
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
+```
+
+
+---
+
+**🔧 Issue**: The profile was not saving even after adding the save method to signal file
+
+**Cause**: def ready(self): indentation was wrong
+
+**✅ Fix**:
+```python
+Fixed the indentation in ready :
+
+class ServicesConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'services'
+
+    def ready(self):
+        import services.signals
 ```
 
 ## 🎨 Fonts & Styles

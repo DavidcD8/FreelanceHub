@@ -15,7 +15,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # Core settings
 SECRET_KEY = env('SECRET_KEY')
-DEBUG = env('DEBUG')
+DEBUG = True
 
 # Allowed hosts
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['127.0.0.1', 'localhost'])
@@ -32,10 +32,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'services.apps.ServicesConfig',
     'accounts',
-    'services',
     'cloudinary',
     'cloudinary_storage',
+    'taggit',
 ]
 
 MIDDLEWARE = [

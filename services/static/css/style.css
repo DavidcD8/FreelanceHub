@@ -209,3 +209,9 @@ body, p {
   border-radius: 20px;
   margin-top: 10px;
 }
+
+
+.badge-pink {
+  background-color: #f0648b;
+  color: #fff;
+}
