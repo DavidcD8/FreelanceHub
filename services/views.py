@@ -5,7 +5,8 @@ from django.contrib.auth.decorators import login_required
 from .forms import CustomUserCreationForm
 from django.contrib.auth import login
 from .forms import ProfileForm
-
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse, HttpResponseRedirect
 
 def register(request):
     if request.method == 'POST':
@@ -111,3 +112,5 @@ def service_delete(request, pk):
         return redirect('service_list')
 
     return render(request, 'services/service_confirm_delete.html', {'service': service})
+
+

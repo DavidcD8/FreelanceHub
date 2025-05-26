@@ -10,9 +10,12 @@
 <p><strong>Description:</strong> {{ service.description }}</p>
 
 {% if request.user == service.owner %}
-<a href="{% url 'service_delete' service.pk %}" class="btn btn-danger">Delete</a>
+  <a href="{% url 'service_delete' service.pk %}" class="btn btn-danger">Delete</a>
 {% endif %}
 
-<a href="{% url 'service_list' %}">Back to services</a>
+<!-- Hire button -->
+<a href="{% url 'add_to_cart' service.id %}" class="btn btn-primary">Hire</a>
 
+<br><br>
+<a href="{% url 'service_list' %}">Back to services</a>
 {% endblock %}

@@ -25,14 +25,15 @@ https://freelancehub-8yvj.onrender.com/
 - 🎨 Poppins font styling with hover animations
 - 🖼 Custom logo for navbar,
 - 🛠 Admin panel for service management
-
+- 🐘 PostgreSQL database integration (via Render)
+- 💳 Stripe integration for secure payment processing
 ---
 
 ## 🛠 Tech Stack
 
 - **Backend**: Django (Python)
 - **Frontend**: HTML, CSS, Bootstrap 5
-- **Database**: SQLite (default)
+- **Database**: SQLite (default) & PostgreSQL
 - **Static Management**: Django static files
 - **Font**: Poppins (Google Fonts)
 

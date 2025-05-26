@@ -1,0 +1,16 @@
+{% for item in cart_items %}
+<tr>
+  <td>{{ item.service.title }}</td>
+  <td>€{{ item.total }}</td>
+  <td><a href="{% url 'remove_from_cart' item.service.id %}" class="btn btn-danger">Remove</a></td>
+</tr>
+{% endfor %}
+<tr>
+  <td colspan="1"><strong>Total:</strong></td>
+  <td colspan="2"><strong>€{{ total_price }}</strong></td>
+</tr>
+
+<div class="text-end mt-3">
+    <a href="{% url 'create_checkout_session' %}" class="btn btn-primary">Proceed to Checkout</a>
+  </div>
+  
