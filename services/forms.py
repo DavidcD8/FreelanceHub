@@ -22,4 +22,4 @@ class ProfileForm(forms.ModelForm):
 class ServiceForm(forms.ModelForm):
     class Meta:
         model = Service
-        fields = ['title', 'description', 'category', 'price', 'image']
+        fields = ['title', 'description', 'category', 'price', 'image','frameworks', 'languages']

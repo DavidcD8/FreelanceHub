@@ -1,4 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
+
+from create_superuser import User
 from .models import Service, Profile
 from .forms import ServiceForm
 from django.contrib.auth.decorators import login_required
@@ -27,19 +29,42 @@ def home(request):
     return render(request, 'home.html', {'services': services, 'categories': categories})
 
 
-def profile(request):
-    profile_info =  Profile.objects.all()
-    return render(request, 'profile.html', {'profile_info':profile_info})
+def profile_view(request):
+    # Show logged-in user's profile
+    user = request.user
+    profile = user.profile
+    services = user.service_set.all()
+    context = {
+        'user_profile': profile,
+        'services': services,
+    }
+    return render(request, 'profile.html', context)
+
+
+
+def view_other_profile(request, username):
+    user_profile = get_object_or_404(Profile, user__username=username)# Get the Profile object for the user with the given username
+    user_services = Service.objects.filter(owner=user_profile.user) # Get the services associated with that user that are available
+
+    context = {
+        "recipient": user_profile.user,
+        "user_profile": user_profile,
+        "user_services": user_services,
+    }
+
+    return render(request, "other_profile.html", context)
+
+
 
 @login_required
 def edit_profile(request):
-    profile = request.user.profile  # assuming Profile created on user creation
+    profile = request.user.profile
 
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
-            return redirect('profile_detail')  # or any page you want to redirect to
+            return redirect('profile_detail')
     else:
         form = ProfileForm(instance=profile)
 

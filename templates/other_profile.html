@@ -1,0 +1,8 @@
+<h2>{{ user_profile.user.username }}'s Services</h2>
+<ul>
+  {% for service in user_services %}
+    <li>{{ service.title }} - Average Rating: {{ service.average_rating }}</li>
+  {% endfor %}
+</ul>
+
+ 

@@ -7,7 +7,6 @@ from django.utils.translation import gettext_lazy as _
 
 
 
-
 class Service(models.Model):
     CATEGORY_CHOICES = [
         ('design', 'Design'),
@@ -44,9 +43,9 @@ class Service(models.Model):
     languages = MultiSelectField(choices=LANGUAGE_CHOICES, blank=True)
     frameworks = MultiSelectField(choices=FRAMEWORK_CHOICES, blank=True)
 
+
     def __str__(self):
         return self.title
-
 
 
 
@@ -58,12 +57,7 @@ class Profile(models.Model):
         'verified': 'Verified Freelancer',
         'new': 'New Seller',
     }
-    LEVEL_CHOICES = [
-        ('new', 'New Seller'),
-        ('verified', 'Verified Freelancer'),
-        ('top', 'Top Rated Freelancer'),
-        ('pro', 'Pro Seller'),
-    ]
+
     EXPERIENCE_CHOICES = [
         ('beginner', 'Beginner'),
         ('intermediate', 'Intermediate'),
@@ -75,28 +69,6 @@ class Profile(models.Model):
     bio = models.TextField(blank=True, null=True)
     location = models.CharField(max_length=100, blank=True)
     experience_level = models.CharField(max_length=20,choices=EXPERIENCE_CHOICES,default='beginner',help_text="Select your experience level")
-    level = models.CharField(max_length=20,choices=LEVEL_CHOICES,default='new',editable=False,help_text="Seller level is assigned automatically")
-
-    @property
-    def computed_level(self):
-        service_count = self.user.service_set.count()
-
-        if service_count >= 10:
-            return self.LEVEL_MAP['pro']
-        elif service_count >= 5:
-            return self.LEVEL_MAP['top']
-        elif service_count >= 1:
-            return self.LEVEL_MAP['verified']
-        else:
-            return self.LEVEL_MAP['new']
-
-    def save(self, *args, **kwargs):
-        # Automatically update level based on service count before saving
-        self.level = next(
-            # generator expression that loops through all the key-value pairs
-            key for key, val in self.LEVEL_MAP.items() if val == self.computed_level 
-        )
-        super().save(*args, **kwargs)
 
 
     def __str__(self):

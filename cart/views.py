@@ -68,31 +68,3 @@ def cancel_view(request):
     return render(request, 'cart/cancel.html')
 
 
-
-
-
-def create_checkout_session(request):
-    cart = request.session.get('cart', {})
-    services = Service.objects.filter(id__in=cart.keys())
-
-    line_items = []
-    for service in services:
-        line_items.append({
-            'price_data': {
-                'currency': 'eur',
-                'product_data': {
-                    'name': service.title,
-                },
-                'unit_amount': int(service.price * 100),  # Stripe uses cents
-            },
-            'quantity': 1,
-        })
-
-    session = stripe.checkout.Session.create(
-        payment_method_types=['card'],
-        line_items=line_items,
-        mode='payment',
-        success_url=request.build_absolute_uri('/cart/success/'),
-        cancel_url=request.build_absolute_uri('/cart/cancel/'),
-    )
-    return redirect(session.url)

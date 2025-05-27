@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Home - Local Services{% endblock %}
+ 
+
 {% block content %}
 
 <!-- Hero -->
@@ -38,21 +40,25 @@
               <h6 class="mb-0">
                 <a href="{% url 'service_detail' service.pk %}" class="text-decoration-none text-dark">{{ service.title }}</a>
               </h6>
-              <p class="text-muted mb-0">€{{ service.price }}</p>
+              <p class="text-muted mb-0">€{{ service.price }} </p>
             </div>
             <span class="category-tag badge bg-light text-dark mb-2 text-truncate" style="max-width: 120px;" title="{{ service.category }}">
               {{ service.category }}
             </span><br>
-            <small class="text-muted">By {{ service.owner }}</small>
-            <span class="badge badge-pink me-2">
-              Experience: {{ service.owner.profile.get_experience_level_display }}
-            </span>
-            <span class="badge badge-pink">
-              Seller: {{ service.owner.profile.computed_level }}
-            </span>
-            
+            <small class="text-muted">
+              By 
+              <a href="{% url 'view_other_profile' username=service.owner.username %}">
+                {{ service.owner.username }}
+              </a>
 
-          </div>
+              <span class="badge badge-pink ms-2">
+                Experience: {{ service.owner.profile.get_experience_level_display }}
+              </span>
+            </small>
+
+
+           </div>
+
         </div>
       </div>
     {% empty %}
