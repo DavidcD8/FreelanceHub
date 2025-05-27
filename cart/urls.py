@@ -9,4 +9,6 @@ urlpatterns = [
     path('update-cart-quantity/<int:service_id>/', views.update_cart_quantity, name='update_cart_quantity'),
     path('success/', views.success_view, name='success'),
     path('cancel/', views.cancel_view, name='cancel'),
+    path('cart/create-checkout-session/', views.create_checkout_session, name='create_checkout_session'),
+
 ]

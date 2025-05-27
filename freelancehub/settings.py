@@ -79,11 +79,19 @@ TEMPLATES = [
 WSGI_APPLICATION = 'freelancehub.wsgi.application'
 
 
- 
-DATABASES = {
-    'default': env.db(),  # This reads from DATABASE_URL in production
-}
 
+# Database
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+else:
+    DATABASES = {
+        'default': env.db(),  # This reads from DATABASE_URL in production
+    }
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
     'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
