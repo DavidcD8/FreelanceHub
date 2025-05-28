@@ -215,3 +215,26 @@ body, p {
   background-color: #f0648b;
   color: #fff;
 }
+
+
+
+/* Rating */
+.seller-rating {
+  font-size: 12px;
+  color: #666;
+  user-select: none;
+}
+
+.ratingp {
+  font-size: 12px !important;
+  color: #6c757d;
+  margin-top: 8px !important;
+
+}
+.star {
+ font-size: 18px;
+}
+
+.star.filled {
+  color: gold;
+}

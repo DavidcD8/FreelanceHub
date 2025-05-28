@@ -1,3 +1,4 @@
+
 {% extends 'base.html' %}
 {% block title %}Home - Local Services{% endblock %}
  
@@ -50,15 +51,29 @@
               <a href="{% url 'view_other_profile' username=service.owner.username %}">
                 {{ service.owner.username }}
               </a>
-
               <span class="badge badge-pink ms-2">
                 Experience: {{ service.owner.profile.get_experience_level_display }}
               </span>
             </small>
 
+            {% if service.owner.profile.average_rating %}
+            <div class="seller-rating text-muted">
+              Seller Rating:
+              <span class="stars">
+                {% for _ in service.filled_stars %}
+                  <span class="star filled">★</span>
+                {% endfor %}
+                {% for _ in service.empty_stars %}
+                  <span class="star">☆</span>
+                {% endfor %}
+              </span>
+              ({{ service.owner.profile.average_rating|floatformat:1 }})
+            </div>
+          {% else %}
+            <p class="ratingp text-muted">Seller not rated yet</p>
+          {% endif %}
 
            </div>
-
         </div>
       </div>
     {% empty %}

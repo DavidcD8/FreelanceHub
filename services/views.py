@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 
 from create_superuser import User
-from .models import Service, Profile
-from .forms import ServiceForm
+from .models import Service, Profile, UserRating
+from .forms import ServiceForm, UserRatingForm
 from django.contrib.auth.decorators import login_required
 from .forms import CustomUserCreationForm
 from django.contrib.auth import login
@@ -23,10 +23,22 @@ def register(request):
         return render(request, 'registration/register.html', {'form': form})
 
 
+
 def home(request):
     services = Service.objects.all().order_by('-created')[:6]
     categories = Service.CATEGORY_CHOICES
+    for service in services:
+        avg = getattr(service.owner.profile, 'average_rating', None)
+        if avg:
+            filled = int(round(avg))
+            empty = 5 - filled
+        else:
+            filled = 0
+            empty = 5
+        service.filled_stars = range(filled)
+        service.empty_stars = range(empty)
     return render(request, 'home.html', {'services': services, 'categories': categories})
+
 
 
 def profile_view(request):
@@ -43,16 +55,55 @@ def profile_view(request):
 
 
 def view_other_profile(request, username):
-    user_profile = get_object_or_404(Profile, user__username=username)# Get the Profile object for the user with the given username
-    user_services = Service.objects.filter(owner=user_profile.user) # Get the services associated with that user that are available
+    user_profile = get_object_or_404(Profile, user__username=username)
+    user_services = Service.objects.filter(owner=user_profile.user)
+    average_rating = user_profile.average_rating
+  
 
     context = {
         "recipient": user_profile.user,
         "user_profile": user_profile,
         "user_services": user_services,
+        'average_rating': average_rating,
     }
-
     return render(request, "other_profile.html", context)
+
+
+@login_required
+def rate_seller(request, username):
+    seller = get_object_or_404(User, username=username)
+
+    if request.method == 'POST':
+        form = UserRatingForm(request.POST)
+        if form.is_valid():
+            rating_value = int(form.cleaned_data['rating'])
+
+            if request.user == seller:
+                # Prevent user from rating themselves
+                return redirect('view_other_profile', username=username)
+
+            existing_rating = UserRating.objects.filter(rater=request.user, seller=seller).first()
+            if existing_rating:
+                existing_rating.rating = rating_value
+                existing_rating.save()
+                print(f"Updated rating to {rating_value} for seller {seller.username} by {request.user.username}")
+            else:
+                UserRating.objects.create(rater=request.user, seller=seller, rating=rating_value)
+                print(f"Created rating {rating_value} for seller {seller.username} by {request.user.username}")
+
+            return redirect('view_other_profile', username=username)
+        else:
+            print("Form invalid:", form.errors)
+    else:
+        form = UserRatingForm()
+
+    context = {
+        'form': form,
+        'seller': seller,
+    }
+    return render(request, 'rate_seller.html', context)
+
+
 
 
 

@@ -23,3 +23,10 @@ class ServiceForm(forms.ModelForm):
     class Meta:
         model = Service
         fields = ['title', 'description', 'category', 'price', 'image','frameworks', 'languages']
+
+class UserRatingForm(forms.Form):
+    rating = forms.ChoiceField(
+        choices=[(i, str(i)) for i in range(1, 6)],
+        widget=forms.RadioSelect,
+        label="Rate this seller",
+    )

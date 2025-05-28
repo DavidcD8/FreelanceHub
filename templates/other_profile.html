@@ -5,4 +5,12 @@
   {% endfor %}
 </ul>
 
- 
+
+{% if average_rating %}
+    Average Rating: {{ average_rating|floatformat:1 }}
+{% else %}
+    This seller has not been rated yet.
+{% endif %}
+
+
+<a href="{% url 'rate_seller' username=user_profile.user.username %}">Rate this seller</a>

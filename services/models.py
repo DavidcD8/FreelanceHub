@@ -49,6 +49,8 @@ class Service(models.Model):
 
 
 
+
+
 class Profile(models.Model):
 
     LEVEL_MAP = {
@@ -70,6 +72,23 @@ class Profile(models.Model):
     location = models.CharField(max_length=100, blank=True)
     experience_level = models.CharField(max_length=20,choices=EXPERIENCE_CHOICES,default='beginner',help_text="Select your experience level")
 
+    @property
+    def average_rating(self):
+        ratings = UserRating.objects.filter(seller=self.user)
+        if ratings.exists():
+            total = sum(r.rating for r in ratings)
+            return total / ratings.count()
+        return None
+
+
+
+    
+class UserRating(models.Model):
+    rater = models.ForeignKey(User, related_name='given_ratings', on_delete=models.CASCADE)
+    seller = models.ForeignKey(User, related_name='received_ratings', on_delete=models.CASCADE)
+    rating = models.IntegerField(default=3)
+    created_at = models.DateTimeField(auto_now_add=True)
+ 
 
     def __str__(self):
-        return f"{self.user.username}'s Profile"
+        return f"Rating {self.rating} by {self.rater.username} for {self.seller.username}"
