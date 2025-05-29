@@ -49,8 +49,6 @@ class Service(models.Model):
 
 
 
-
-
 class Profile(models.Model):
 
     LEVEL_MAP = {
@@ -68,6 +66,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     phone = models.CharField(max_length=20, blank=True)
     image = CloudinaryField('image', blank=True, null=True)
+    skills = models.TextField(blank=True, null=True)
     bio = models.TextField(blank=True, null=True)
     location = models.CharField(max_length=100, blank=True)
     experience_level = models.CharField(max_length=20,choices=EXPERIENCE_CHOICES,default='beginner',help_text="Select your experience level")
@@ -82,13 +81,12 @@ class Profile(models.Model):
 
 
 
-    
 class UserRating(models.Model):
     rater = models.ForeignKey(User, related_name='given_ratings', on_delete=models.CASCADE)
     seller = models.ForeignKey(User, related_name='received_ratings', on_delete=models.CASCADE)
     rating = models.IntegerField(default=3)
     created_at = models.DateTimeField(auto_now_add=True)
- 
+
 
     def __str__(self):
         return f"Rating {self.rating} by {self.rater.username} for {self.seller.username}"

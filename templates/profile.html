@@ -1,12 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
 
-<h2>{{ user.username }}'s Profile</h2>
+<div class="container mt-4">
+  <div  >
+    <div class="card-body">
 
-<p><strong>Experience Level:</strong> {{ user.profile.get_experience_level_display }}</p>
+      {% if user.profile.image %}
+        <img src="{{ user.profile.image.url }}" alt="Profile Image"
+             class="img-thumbnail mb-3" width="150" />
+      {% endif %}
 
-<p><strong>Bio:</strong> {{ user.profile.bio }}</p>
+      <h2 class="card-title">{{ user.username }}'s Profile</h2>
 
-<p><strong>Location:</strong> {{ user.profile.location }}</p>
+      <p><strong>Experience Level:</strong> {{ user.profile.get_experience_level_display }}</p>
+      <p><strong>Bio:</strong></p>
+      <div class="form-control mb-3 text-muted" style="min-height: 100px;">{{ user.profile.bio|linebreaksbr }}</div>
+      <p><strong>Skill:</strong></p>
+      <div class="form-control mb-3 mb-3 text-muted" style="min-height: 100px;">{{ user.profile.skills|linebreaksbr }}</div>
 
-{% if user.profile.image %}
-  <img src="{{ user.profile.image.url }}" alt="Profile Image" width="150" />
-{% endif %}
+      <p><strong>Location:</strong> {{ user.profile.location }}</p>
+
+      <a href="{% url 'edit_profile' %}" class="btn btn-primary mt-3 mb-3">Edit Profile</a>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}

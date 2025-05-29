@@ -1,10 +1,16 @@
-h1, h2, h3, .nav-link {
+h1,
+h2,
+h3,
+.nav-link {
   font-family: 'Poppins', sans-serif;
 }
+
 /* Body*/
-body, p {
+body,
+p {
   font-family: 'Merriweather', serif;
 }
+
 
 /*Register form*/
 .registerform {
@@ -28,17 +34,17 @@ body, p {
 }
 
 
-
 /* Navbar*/
 
-.navbar{
-  padding-top:  1px;
-  padding-bottom:  1px;
+.navbar {
+  padding-top: 1px;
+  padding-bottom: 1px;
 
 }
 
 .dropdown-menu {
-  display: block; /* Needed to prevent Bootstrap hiding it */
+  display: block;
+  /* Needed to prevent Bootstrap hiding it */
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
@@ -59,19 +65,41 @@ body, p {
 .nav-link.dropdown-toggle:hover {
   color: #f0648b;
 }
-.nav-link:hover{
+
+.nav-link:hover {
   color: #f0648b;
 }
 
-.dropdown-menu .dropdown-item:hover{
+.dropdown-menu .dropdown-item:hover {
   color: #f0648b;
   background-color: transparent;
   transition: color 0.3s ease;
 }
 
+
+.nav-item img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  /* Light border */
+  object-fit: cover;
+  /* Ensures the image fits within the circle */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.nav-item img:hover {
+  transform: scale(1.1);
+  /* Slight zoom effect on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  /* Adds a shadow on hover */
+}
+
+
 /* Hero*/
 .hero {
-  position: relative; /* To position the search box absolutely inside it */
+  position: relative;
+  /* To position the search box absolutely inside it */
   background-color: #212529;
   padding: 40px 20px;
   height: 300px;
@@ -80,7 +108,8 @@ body, p {
 }
 
 .hero-text {
-  max-width: 600px; /* optional to limit text width */
+  max-width: 600px;
+  /* optional to limit text width */
   margin-top: 50px;
 }
 
@@ -96,8 +125,10 @@ body, p {
 
 .search-box {
   position: absolute;
-  top: 20px;  /* Adjust distance from top */
-  right: 20px; /* Adjust distance from right */
+  top: 20px;
+  /* Adjust distance from top */
+  right: 20px;
+  /* Adjust distance from right */
   max-width: 300px;
   margin-bottom: 0;
   display: flex;
@@ -167,7 +198,8 @@ body, p {
 .image {
   position: relative;
   width: 100%;
-  padding-top: 56.25%; /* 16:9 Aspect Ratio */
+  padding-top: 56.25%;
+  /* 16:9 Aspect Ratio */
   background-color: #f0f0f0;
 }
 
@@ -217,7 +249,6 @@ body, p {
 }
 
 
-
 /* Rating */
 .seller-rating {
   font-size: 12px;
@@ -231,8 +262,9 @@ body, p {
   margin-top: 8px !important;
 
 }
+
 .star {
- font-size: 18px;
+  font-size: 18px;
 }
 
 .star.filled {

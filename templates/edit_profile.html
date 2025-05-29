@@ -1,6 +1,25 @@
-<h2>Edit Profile</h2>
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Edit Your Profile</h2>
+
+{% if profile.image %}
+<h4>Current Profile Image:</h4>
+<img src="{{ profile.image.url }}" alt="Profile Image" width="150" />
+{% endif %}
+
+
+{% if messages %}
+{% for message in messages %}
+<div class="alert">{{ message }}</div>
+{% endfor %}
+{% endif %}
+
 <form method="POST" enctype="multipart/form-data">
   {% csrf_token %}
   {{ form.as_p }}
   <button type="submit">Save</button>
 </form>
+
+
+{% endblock %}

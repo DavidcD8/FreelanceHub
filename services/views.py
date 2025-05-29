@@ -1,5 +1,4 @@
 from django.shortcuts import render, get_object_or_404, redirect
-
 from create_superuser import User
 from .models import Service, Profile, UserRating
 from .forms import ServiceForm, UserRatingForm
@@ -9,6 +8,9 @@ from django.contrib.auth import login
 from .forms import ProfileForm
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse, HttpResponseRedirect
+from django.contrib import messages
+
+
 
 def register(request):
     if request.method == 'POST':
@@ -58,7 +60,7 @@ def view_other_profile(request, username):
     user_profile = get_object_or_404(Profile, user__username=username)
     user_services = Service.objects.filter(owner=user_profile.user)
     average_rating = user_profile.average_rating
-  
+
 
     context = {
         "recipient": user_profile.user,
@@ -67,6 +69,7 @@ def view_other_profile(request, username):
         'average_rating': average_rating,
     }
     return render(request, "other_profile.html", context)
+
 
 
 @login_required
@@ -105,8 +108,6 @@ def rate_seller(request, username):
 
 
 
-
-
 @login_required
 def edit_profile(request):
     profile = request.user.profile
@@ -115,11 +116,14 @@ def edit_profile(request):
         form = ProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
-            return redirect('profile_detail')
+            messages.success(request, "Your profile has been updated successfully.")
+            return redirect('profile')
+        else:
+          messages.error(request, "Please correct the errors below.")
     else:
-        form = ProfileForm(instance=profile)
-
-    return render(request, 'edit_profile.html', {'form': form})
+        form = ProfileForm(instance=profile
+                           )
+    return render(request, 'edit_profile.html', {'form': form, 'profile': profile})
 
 
 
@@ -142,6 +146,7 @@ def service_list(request):
     })
 
 
+
 def service_detail(request, pk):
     service = get_object_or_404(Service, pk=pk)
     return render(request, 'services/service_detail.html', {'service': service})
@@ -161,6 +166,7 @@ def service_create(request):
     return render(request, 'services/service_form.html', {'form': form})
 
 
+
 @login_required
 def service_edit(request, pk):
     service = get_object_or_404(Service, pk=pk)
@@ -175,6 +181,7 @@ def service_edit(request, pk):
     else:
         form = ServiceForm(instance=service)
     return render(request, 'services/service_form.html', {'form': form})
+
 
 
 @login_required
